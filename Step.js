@@ -15,9 +15,24 @@ export default class Step extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				{this.stepRender()}
+				<View style={[styles.row]}>
+					{this.stepRender()}
+				</View>
+				<View style={[styles.row]}>
+					{this.textRender()}
+				</View>
 			</View>
 		);
+	}
+	
+	
+	textRender(){
+		const {items, currentStep} = this.props;
+		return items.map((item, key)=>{
+			return (
+				<Text style={[styles.flex, styles.textContainer, key == currentStep ? styles.textCurrent : styles.text]}>{item}</Text>
+			)
+		})
 	}
 	
 	stepRender(){
@@ -95,10 +110,14 @@ const styles = StyleSheet.create({
 		backgroundColor: '#caffd6',
 		justifyContent: 'center',
 		alignItems: 'center',
-		flexDirection: 'row'
+		flexDirection: 'column'
 	},
+	
 	flex: {
 		flex: 1
+	},
+	row: {
+		flexDirection: 'row',
 	},
 	stepContainer: {
 		flexDirection: 'row',
@@ -133,5 +152,21 @@ const styles = StyleSheet.create({
 		backgroundColor: '#49A0D5',
 		height: 1.5,
 		justifyContent: 'center'
+	},
+	text: {
+		color: '#454553',
+		opacity: 0.32,
+		fontSize: 14,
+		fontWeight: '600',
+		textAlign: 'center'
+	},
+	textCurrent: {
+		color: '#454553',
+		fontSize: 14,
+		fontWeight: '600',
+		textAlign: 'center'
+	},
+	textContainer: {
+		marginTop: 5,
 	}
 });

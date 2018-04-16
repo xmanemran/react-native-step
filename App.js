@@ -12,7 +12,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<View style={styles.root}>
-				<Step items={['Order', 'Delivered', 'Paid', 'Order']} currentStep={2}/>
+				<Step items={['Order', 'Delivered', 'Paid',]} currentStep={2}/>
 			</View>
 		);
 	}
