@@ -5,6 +5,7 @@ import {
 	Text,
 	View
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 
 export default class Step extends Component {
@@ -102,6 +103,22 @@ export default class Step extends Component {
 		return <View style={[styles.flex, lineStyle]}></View>
 	}
 	
+}
+
+Step.propTypes = {
+	containerStyle: PropTypes.object,
+	circleUndoneStyle: PropTypes.object,
+	circleCurrentStyle: PropTypes.object,
+	circleDoneStyle: PropTypes.object,
+	lineUndoneStyle: PropTypes.object,
+	lineDoneStyle: PropTypes.object,
+	textStyle: PropTypes.object,
+	textCurrentStyle: PropTypes.object,
+	currentStep: PropTypes.number,
+	items: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.string),
+		PropTypes.number,
+	])
 }
 
 const styles = StyleSheet.create({
