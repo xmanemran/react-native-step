@@ -20,6 +20,5 @@ export default class App extends Component {
 
 var styles = StyleSheet.create({
 	root: {
-		margin: 20
 	}
 });

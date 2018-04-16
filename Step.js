@@ -149,7 +149,7 @@ Step.defaultProps = {
 const styles = StyleSheet.create({
 	container: {
 		height: 70,
-		backgroundColor: '#caffd6',
+		backgroundColor: '#DDD',
 		justifyContent: 'center',
 		alignItems: 'center',
 		flexDirection: 'column'
