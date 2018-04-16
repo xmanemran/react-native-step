@@ -14,8 +14,10 @@ export default class Step extends Component {
 	}
 	
 	render() {
+		const {containerStyle} = this.props;
+		
 		return (
-			<View style={styles.container}>
+			<View style={[styles.container, containerStyle]}>
 				<View style={[styles.row]}>
 					{this.stepRender()}
 				</View>
@@ -28,18 +30,23 @@ export default class Step extends Component {
 	
 	
 	textRender(){
-		const {items, currentStep} = this.props;
+		const {items, currentStep, textCurrentStyle, textStyle} = this.props;
 		return items.map((item, key)=>{
 			return (
-				<Text style={[styles.flex, styles.textContainer, key == currentStep ? styles.textCurrent : styles.text]}>{item}</Text>
+				<Text style={[
+						styles.flex,
+						styles.textContainer,
+						key == currentStep ? [styles.textCurrent, {...textCurrentStyle}] : [styles.text, {...textStyle}]]}>
+					{item}
+				</Text>
 			)
 		})
 	}
 	
 	stepRender(){
 		const {items, currentStep} = this.props;
-		let steps = [];
-		for (let i = 0; i < items.length; i++){
+		let steps = [], limit = typeof items === 'number' ? items : items.length;
+		for (let i = 0; i < limit; i++){
 			let step = [];
 
 			// start Line render and empty line render when index 0;
@@ -64,7 +71,6 @@ export default class Step extends Component {
 
 			// push elements as one step
 			
-			console.log(step)
 			steps.push(this.stepContainer(step));
 		}
 		return steps;
@@ -84,22 +90,27 @@ export default class Step extends Component {
 	}
 	
 	stepItemCircleElement(status){
-		let statusStyle;
+		const {circleDoneStyle, circleCurrentStyle, circleUndoneStyle} = this.props;
+		
+		let statusStyle = {};
 		switch(status){
 			case 'done':
-				statusStyle = styles.circleDone;
+				statusStyle = [styles.circleDone, {...circleDoneStyle}];
 				break;
 			case 'current':
-				statusStyle = styles.circleCurrent;
+				statusStyle = [styles.circleCurrent, {...circleCurrentStyle}];
 				break;
 			default:
-				statusStyle = styles.circleUndone;
+				statusStyle = [styles.circleUndone, {...circleUndoneStyle}];
 		}
+		
 		return <View style={statusStyle}></View>
 	}
 	
 	stepItemLineElement(isDone){
-		let lineStyle = isDone ? styles.lineDone : styles.lineUndone;
+		const {lineUndoneStyle, lineDoneStyle} = this.props;
+		
+		let lineStyle = isDone ? [styles.lineDone, {...lineDoneStyle}] : [styles.lineUndone, {...lineUndoneStyle}];
 		return <View style={[styles.flex, lineStyle]}></View>
 	}
 	
@@ -119,7 +130,21 @@ Step.propTypes = {
 		PropTypes.arrayOf(PropTypes.string),
 		PropTypes.number,
 	])
-}
+};
+
+
+Step.defaultProps = {
+	containerStyle: {},
+	circleUndoneStyle: {},
+	circleCurrentStyle: {},
+	circleDoneStyle: {},
+	lineUndoneStyle: {},
+	lineDoneStyle: {},
+	textStyle: {},
+	textCurrentStyle: {},
+	currentStep: 0,
+	items: 2
+};
 
 const styles = StyleSheet.create({
 	container: {
